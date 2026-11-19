@@ -1,8 +1,8 @@
 # Reproduction artifact: an 84-cell diagnosis of exercise solvability under AI assistance
 
 This repository holds the data, the harness and the analysis scripts behind the manuscript
-*Diagnosing Exercise Validity under AI Assistance: An 84-Cell Study in Vocational Cybersecurity
-Education*. Everything the paper reports can be recomputed from the files here, and every one of
+*Diagnosing Exercise Validity under AI Assistance: An 84-Cell Vocational Cybersecurity Study*.
+Everything the paper reports can be recomputed from the files here, and every one of
 those recomputations is checked by a single command that needs no Docker, no API key and no network
 access.
 
