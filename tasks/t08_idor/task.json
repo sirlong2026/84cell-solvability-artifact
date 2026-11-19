@@ -1,0 +1,22 @@
+{
+  "id": "t08",
+  "name": "个人资料查询（越权 / IDOR）",
+  "cwe": "CWE-639",
+  "flag": "flag{idor_admin_2026}",
+  "endpoint": "/profile",
+  "method": "GET",
+  "params": ["id"],
+  "aliases": {
+    "path": ["/profile", "/user", "/account", "/me"],
+    "param": {
+      "id": ["id", "uid", "user_id", "userid", "n"]
+    }
+  },
+  "exploit": { "kind": "idor" },
+  "functional": [
+    { "name": "own_profile", "path": "/profile", "method": "GET",
+      "headers": { "X-User": "alice" },
+      "form": { "id": "1" },
+      "expect_status": 200, "expect_contains": "alice" }
+  ]
+}

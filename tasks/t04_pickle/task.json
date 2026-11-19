@@ -1,0 +1,21 @@
+{
+  "id": "t04",
+  "name": "配置装载（不安全反序列化）",
+  "cwe": "CWE-502",
+  "flag": "flag{pickle_rce_2026}",
+  "endpoint": "/load",
+  "method": "POST",
+  "params": ["data"],
+  "aliases": {
+    "path": ["/load", "/import", "/restore", "/deserialize"],
+    "param": {
+      "data": ["data", "payload", "blob", "cfg", "d"]
+    }
+  },
+  "exploit": { "kind": "pickle" },
+  "functional": [
+    { "name": "load_json", "path": "/load", "method": "POST",
+      "form": { "data": "eyJuYW1lIjogImFsaWNlIn0=" },
+      "expect_status": 200, "expect_contains": "loaded" }
+  ]
+}

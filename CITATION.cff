@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this artifact, cite it as below. The author block is left neutral while the manuscript is under double-blind review and is completed at acceptance."
+title: "84-cell solvability diagnosis of vocational cybersecurity exercises under AI assistance: reproduction artifact"
+version: 1.0.0
+date-released: "2026-11-19"
+license: MIT
+abstract: >-
+  Data, harness and analysis scripts for a diagnosis of exercise validity under AI
+  assistance. Fourteen containerised capture-the-flag exercises are crossed with three
+  variants (original, paraphrase, patched safe) and two information levels (interface
+  names shown, URL only), giving an 84-cell matrix. The artifact contains every agent
+  run and per-round record behind the reported rates, the exercise definitions, the
+  evaluation harness, and a script that recomputes all 65 reported quantities from the
+  data with no external dependencies.
+keywords:
+  - assessment validity
+  - AI solvability
+  - capture-the-flag
+  - vocational education
+  - reproducible evaluation
+authors:
+  - name: "Anonymous (author block completed at acceptance)"

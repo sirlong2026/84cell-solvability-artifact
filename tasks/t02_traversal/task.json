@@ -1,0 +1,21 @@
+{
+  "id": "t02",
+  "name": "文件下载（路径穿越）",
+  "cwe": "CWE-22",
+  "flag": "flag{traversal_2026}",
+  "endpoint": "/download",
+  "method": "GET",
+  "params": ["file"],
+  "aliases": {
+    "path": ["/download", "/get", "/file", "/fetch"],
+    "param": {
+      "file": ["file", "path", "filename", "f", "name"]
+    }
+  },
+  "exploit": { "kind": "traversal" },
+  "functional": [
+    { "name": "read_ok", "path": "/download", "method": "GET",
+      "form": { "file": "hello.txt" },
+      "expect_status": 200, "expect_contains": "hello world" }
+  ]
+}

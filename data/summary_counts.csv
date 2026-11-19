@@ -1,0 +1,13 @@
+indicator,value_last_run_per_cell,value_first_run_per_cell,note
+L1_solved,22,17,L1 层级 42 格中判为解出的格数
+L1_rate,52.4,40.5,L1 可解率（%）
+L0_solved,2,2,L0 层级 42 格中判为解出的格数
+L0_rate,4.8,4.8,L0 可解率（%）
+safe_cells,28,28,safe 真阴性对照格数
+safe_solved,0,0,safe 格中被判为解出的格数（应为 0）
+a_L1_solved_tasks,12,9,母题 a 在 L1 可解的题数（满分 14）
+a_collapse_to_zero,11,8,上述题中在 L0 坍缩为不可解的题数
+b_L1_rate,71.4,57.1,派生题 b 在 L1 的可解率（%）
+L0_avg_tokens,28767,26365,L0 平均总 token 消耗
+L0_avg_rounds,4.8,4.5,L0 平均使用轮次
+L0_halluc_rate,31.0,31.0,L0 幻觉率（%）

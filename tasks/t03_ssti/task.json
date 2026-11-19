@@ -1,0 +1,21 @@
+{
+  "id": "t03",
+  "name": "模板渲染（服务端模板注入）",
+  "cwe": "CWE-94",
+  "flag": "flag{ssti_2026}",
+  "endpoint": "/render",
+  "method": "GET",
+  "params": ["name"],
+  "aliases": {
+    "path": ["/render", "/show", "/view", "/template"],
+    "param": {
+      "name": ["name", "tpl", "template", "content", "s"]
+    }
+  },
+  "exploit": { "kind": "ssti" },
+  "functional": [
+    { "name": "render_plain", "path": "/render", "method": "GET",
+      "form": { "name": "Alice" },
+      "expect_status": 200, "expect_contains": "Hello Alice" }
+  ]
+}

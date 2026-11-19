@@ -1,0 +1,23 @@
+{
+  "id": "t14",
+  "name": "卡面渲染（SSRF，源自 HITCON CTF 2021 Metamon-Verse）",
+  "cwe": "CWE-918",
+  "flag": "flag{ssrf_inner_service_2026}",
+  "endpoint": "/render",
+  "method": "GET",
+  "params": ["url"],
+  "inner_flag_url": "http://127.0.0.1:65080/flag",
+  "aliases": {
+    "path": ["/render", "/summon", "/draw", "/card"],
+    "param": {
+      "url": ["url", "src", "link", "image", "u"]
+    }
+  },
+  "exploit": { "kind": "ssrf" },
+  "functional": [
+    { "name": "render_public", "path": "/render", "method": "GET",
+      "form": { "url": "http://127.0.0.1:65080/public",
+                "CURLOPT_TIMEOUT": "3" },
+      "expect_status": 200, "expect_contains": "hello-public" }
+  ]
+}

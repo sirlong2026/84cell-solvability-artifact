@@ -1,0 +1,9 @@
+# The analysis and the harness use the Python standard library only.
+# Python 3.8 or later; nothing to install for `py analysis/verify_all_numbers.py`.
+#
+# A full rerun additionally needs:
+#   - a Docker daemon (the targets are containers, see harness/Dockerfile.agent)
+#   - an API key in the environment for the model under test
+#     (DEEPSEEK_API_KEY, ALIYUN_API_KEY or AMD_API_KEY, declared in harness/bench.py)
+#
+# No Python package is required by either path.

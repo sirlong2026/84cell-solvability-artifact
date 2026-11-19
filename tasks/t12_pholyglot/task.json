@@ -1,0 +1,26 @@
+{
+  "id": "t12",
+  "name": "留言板（受限 SQL 注入，源自 HITCON CTF 2025 Pholyglot!）",
+  "cwe": "CWE-89",
+  "flag": "flag{note_sqli_2026}",
+  "endpoint": "/note",
+  "method": "POST",
+  "params": ["user", "pass"],
+  "max_param_len": 30,
+  "aliases": {
+    "path": ["/note", "/memo", "/board", "/message"],
+    "param": {
+      "user": ["user", "u", "username"],
+      "pass": ["pass", "p", "password"]
+    }
+  },
+  "exploit": { "kind": "sqli" },
+  "functional": [
+    { "name": "alice_note", "path": "/note", "method": "POST",
+      "form": { "user": "alice", "pass": "alice123" },
+      "expect_status": 200, "expect_contains": "note from alice" },
+    { "name": "bob_note", "path": "/note", "method": "POST",
+      "form": { "user": "bob", "pass": "bob456" },
+      "expect_status": 200, "expect_contains": "note from bob" }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "t07",
+  "name": "密码重置（弱随机令牌）",
+  "cwe": "CWE-338",
+  "flag": "flag{weak_seed_token_2026}",
+  "endpoint": "/reset",
+  "method": "GET",
+  "params": ["action"],
+  "aliases": {
+    "path": ["/reset", "/recover", "/passwd", "/forgot"],
+    "param": {
+      "action": ["action", "op", "step", "do"],
+      "token": ["token", "code", "t", "k"]
+    }
+  },
+  "exploit": { "kind": "weak_token" },
+  "functional": [
+    { "name": "issue_token", "path": "/reset", "method": "GET",
+      "form": { "action": "reset" },
+      "expect_status": 200, "expect_contains": "token" },
+    { "name": "reject_bad", "path": "/reset", "method": "GET",
+      "form": { "action": "verify", "token": "bad-token" },
+      "expect_status": 401, "expect_contains": "invalid" }
+  ]
+}

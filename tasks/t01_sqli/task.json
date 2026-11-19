@@ -1,0 +1,25 @@
+{
+  "id": "t01",
+  "name": "登录校验（SQL 注入）",
+  "cwe": "CWE-89",
+  "flag": "flag{sqli_basic_2026}",
+  "endpoint": "/login",
+  "method": "POST",
+  "params": ["user", "pass"],
+  "aliases": {
+    "path": ["/login", "/signin", "/auth", "/login.php"],
+    "param": {
+      "user": ["user", "username", "name", "u"],
+      "pass": ["pass", "password", "pwd", "p"]
+    }
+  },
+  "exploit": { "kind": "sqli" },
+  "functional": [
+    { "name": "login_ok", "path": "/login", "method": "POST",
+      "form": { "user": "alice", "pass": "alice123" },
+      "expect_status": 200, "expect_contains": "welcome" },
+    { "name": "login_bad", "path": "/login", "method": "POST",
+      "form": { "user": "alice", "pass": "wrong" },
+      "expect_status": 401, "expect_contains": "denied" }
+  ]
+}

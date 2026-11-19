@@ -1,0 +1,8 @@
+# keep every text file LF so that the checksums in docs/MANIFEST.sha256 hold on
+# any platform
+* text=auto eol=lf
+
+# data are line-oriented JSON and CSV; never rewrite their line endings
+*.jsonl -text
+*.csv -text
+*.txt -text

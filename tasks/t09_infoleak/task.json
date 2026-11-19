@@ -1,0 +1,19 @@
+{
+  "id": "t09",
+  "name": "健康检查端点（信息泄露）",
+  "cwe": "CWE-200",
+  "flag": "flag{debug_env_leak_2026}",
+  "endpoint": "/debug",
+  "method": "GET",
+  "params": [],
+  "aliases": {
+    "path": ["/debug", "/admin", "/env", "/config", "/status", "/health", "/.env"],
+    "param": {}
+  },
+  "exploit": { "kind": "info_leak" },
+  "functional": [
+    { "name": "status_ok", "path": "/debug", "method": "GET",
+      "form": {},
+      "expect_status": 200, "expect_contains": "status: ok" }
+  ]
+}

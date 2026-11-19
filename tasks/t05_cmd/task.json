@@ -1,0 +1,21 @@
+{
+  "id": "t05",
+  "name": "回显服务（OS 命令注入）",
+  "cwe": "CWE-78",
+  "flag": "flag{cmdi_echo_2026}",
+  "endpoint": "/ping",
+  "method": "GET",
+  "params": ["host"],
+  "aliases": {
+    "path": ["/ping", "/netcheck", "/echo", "/exec"],
+    "param": {
+      "host": ["host", "target", "addr", "ip", "h"]
+    }
+  },
+  "exploit": { "kind": "cmd" },
+  "functional": [
+    { "name": "echo_ok", "path": "/ping", "method": "GET",
+      "form": { "host": "hello" },
+      "expect_status": 200, "expect_contains": "hello" }
+  ]
+}

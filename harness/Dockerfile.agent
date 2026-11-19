@@ -1,0 +1,47 @@
+# Agent 跑批台专用镜像 (T3 / T5)
+#
+# 与 Dockerfile(被测代码运行时镜像) 的区别:
+#   Dockerfile          运行时由 docker cp 注入 /task  —— 每个 run 都要 cp
+#   Dockerfile.agent    tasks/ 在**构建期**烘焙进镜像  —— 每个 run 只 run/rm
+#
+# 为什么需要这个镜像(踩坑记录):
+#   原方案每个 run 触发 ~45 次 docker CLI 调用:
+#     rm -f(可能重试2次) / create / cp / start / exec(root chmod) / exec -d /
+#     探针循环(exec+inspect, 最多数十次) / 每轮一个驱动容器(create+cp+start+
+#     wait+logs+rm = 6) / rm -f
+#   实测跑完约 15-18 个 run(~800 次调用)后 dockerd 静默挂死, docker ps 无响应
+#   且无任何报错。烘焙镜像 + 复用驱动容器后降到 ~14 次/run, 降幅约 70%。
+#
+# 安全约束不变:
+#   1. 靶机进程仍以 uid=10001(bench) 运行, 非 root
+#   2. 驱动容器与靶机分离, agent 脚本看不到靶机的 FLAG 环境变量
+#   3. bench_net 为 --internal, 无外网出口
+#
+# 构建:
+#   docker build -f docker/Dockerfile.agent -t dsa2026-agent:latest .
+#   (构建上下文必须是 ctf-oracle/ 根目录, 因为要 COPY tasks/)
+
+FROM dsa2026-bench:latest
+
+USER root
+
+# 烘焙全部 14 题的参考实现与公共模块 (_common.py 必须一起进, 否则 ModuleNotFoundError)
+COPY tasks/ /task/
+COPY agent/exec_driver.py /drv/exec_driver.py
+
+# docker cp 注入的文件属主是 root, bench 无法写 flag.txt -> 原先要在运行期
+# exec --user root chmod。烘焙进来后这一步在构建期做完, 运行期不再需要。
+RUN chmod -R 777 /task /drv \
+    && mkdir -p /work \
+    && chmod 777 /work
+
+USER bench
+WORKDIR /task
+
+ENV PYTHONIOENCODING=utf-8 \
+    PYTHONUNBUFFERED=1 \
+    WORK_DIR=/work
+
+EXPOSE 8080
+
+CMD ["python", "impl.py", "--variant", "a", "--port", "8080"]

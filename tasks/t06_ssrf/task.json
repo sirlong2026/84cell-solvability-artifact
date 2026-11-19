@@ -1,0 +1,22 @@
+{
+  "id": "t06",
+  "name": "远端抓取（SSRF）",
+  "cwe": "CWE-918",
+  "flag": "flag{ssrf_inner_service_2026}",
+  "endpoint": "/fetch",
+  "method": "GET",
+  "params": ["url"],
+  "inner_flag_url": "http://127.0.0.1:65080/flag",
+  "aliases": {
+    "path": ["/fetch", "/proxy", "/open", "/curl"],
+    "param": {
+      "url": ["url", "link", "uri", "src", "u"]
+    }
+  },
+  "exploit": { "kind": "ssrf" },
+  "functional": [
+    { "name": "fetch_public", "path": "/fetch", "method": "GET",
+      "form": { "url": "http://127.0.0.1:65080/public" },
+      "expect_status": 200, "expect_contains": "hello-public" }
+  ]
+}

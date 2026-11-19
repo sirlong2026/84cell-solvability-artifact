@@ -1,0 +1,24 @@
+{
+  "id": "t10",
+  "name": "在线计算器（表达式求值注入）",
+  "cwe": "CWE-95",
+  "flag": "flag{eval_calc_2026}",
+  "endpoint": "/calc",
+  "method": "GET",
+  "params": ["expr"],
+  "aliases": {
+    "path": ["/calc", "/compute", "/eval", "/math"],
+    "param": {
+      "expr": ["expr", "e", "expression", "q", "formula"]
+    }
+  },
+  "exploit": { "kind": "eval" },
+  "functional": [
+    { "name": "add", "path": "/calc", "method": "GET",
+      "form": { "expr": "1+1" },
+      "expect_status": 200, "expect_contains": "2" },
+    { "name": "mul", "path": "/calc", "method": "GET",
+      "form": { "expr": "6*7" },
+      "expect_status": 200, "expect_contains": "42" }
+  ]
+}

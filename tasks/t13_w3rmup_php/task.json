@@ -1,0 +1,24 @@
+{
+  "id": "t13",
+  "name": "通知服务（黑名单过滤命令注入，源自 HITCON CTF 2021 W3rmup PHP）",
+  "cwe": "CWE-78",
+  "flag": "flag{notify_cmdi_2026}",
+  "endpoint": "/notify",
+  "method": "GET",
+  "params": ["host"],
+  "aliases": {
+    "path": ["/notify", "/alert", "/send", "/mail"],
+    "param": {
+      "host": ["address", "mail", "addr", "to", "recipient"]
+    }
+  },
+  "exploit": { "kind": "cmd" },
+  "functional": [
+    { "name": "echo_host", "path": "/notify", "method": "GET",
+      "form": { "host": "127.0.0.1" },
+      "expect_status": 200, "expect_contains": "127.0.0.1" },
+    { "name": "echo_domain", "path": "/notify", "method": "GET",
+      "form": { "host": "example.org" },
+      "expect_status": 200, "expect_contains": "example.org" }
+  ]
+}

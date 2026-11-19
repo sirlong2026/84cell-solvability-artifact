@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+
+# credentials must never enter this repository; the harness reads them from the
+# environment only (see the red lines at the top of harness/bench.py)
+*.env
+.env
+keys/
+*_api_key.txt
